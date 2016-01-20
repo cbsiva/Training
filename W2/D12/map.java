@@ -4,7 +4,7 @@ public class map{
 
 	public static void print(ArrayList<String> ar){
 
-		HashMap<Integer, ArrayList<String>> hm = new HashMap<>();
+		TreeMap<Integer, ArrayList<String>> hm = new TreeMap<>();
 
 		for(String e : ar){
 			if(hm.containsKey(e.length())==false){
