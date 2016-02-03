@@ -1,0 +1,115 @@
+{
+	"header":[
+		
+		{
+			"source":"Customer Id",
+			"title":"Customer Id",
+			"format":"string"
+		},
+		{
+			"source":"Subscription Id",
+			"title":"Subscription Id",
+			"format":"string",
+		},
+		{
+			"source":"Invoice Number",
+			"title":"Invoice Id",
+			"format":"string"
+		},
+		{
+			"source":"Invoice Date",
+			"title":"Invoice Date",
+			"format":"datetime",
+			
+			"patternFrom":"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+			"patternTo":"M/dd/yyyy HH:mm:ss"
+		},
+		{	
+			"source":"Start Date",
+			"title":"Start Date",
+			"format":"datetime",
+			
+			"patternFrom":"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+			"patternTo":"M/dd/yyyy HH:mm:ss"
+		},
+		{
+			"source":"Amount",
+			"title":"Amount",
+			"format":"decimal",
+					
+			"before":"@/100"
+
+		},
+		{
+			"source":"Status",
+			"title":"Status",
+			"format":"string"
+		},
+		{
+			"source":"Paid On",
+			"title":"Paid On",
+			"format":"datetime",
+			
+			"patternFrom":"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+			"patternTo":"M/dd/yyyy HH:mm:ss"
+		},
+		{
+			"source":"Next Retry",
+			"title":"Next Retry",
+			"format":"string"
+		},
+		{
+			"source":"Refunded Amount",
+			"title":"Refunded Amount",
+			"format":"decimal",
+
+			"before":"@/10"
+		},
+		{
+			"source":"Recurring",
+			"title":"Recurring",
+			"format":"string"
+		},
+		{
+			"source":"First Invoice",
+			"title":"First Invoice",
+			"format":"string"
+		},
+		{
+			"source":"Tax Total",
+			"title":"Tax Total",
+			"format":"decimal",
+
+			"before":"@/100"
+		},
+		{	
+
+			"title":"Customer Details",
+			"format":"json",
+			"source":[
+				{
+					"source":"Customer First Name",
+					"title":"First Name",
+					"format":"string"
+				},
+				{
+					"source":"Customer Last Name",
+					"title":"Last Name",
+					"format":"string"
+				},
+				{
+					"source":"Customer Email",
+					"title":"Email",
+					"format":"string"
+				},
+				{
+					"source":"Customer Company",
+					"title":"Company",
+					"format":"string"
+				}
+			]
+
+		}
+	]
+
+}
