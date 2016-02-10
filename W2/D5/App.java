@@ -77,17 +77,22 @@ public class App{
 				JSONArray source = (JSONArray)jo.get("source");
 				arr.add(generateJSON(source, rec));
 
-			}else if(format.equals("datetime") && jo.containsKey("patternFrom") && jo.containsKey("patternTo")  ){
+			}else if(format.equals("datetime") && jo.containsKey("patternFrom") && jo.containsKey("patternTo") ){
 
 				String source = (String)jo.get("source");
 				String patternFrom = (String)jo.get("patternFrom");
 				String patternTo = (String)jo.get("patternTo");
 
-				SimpleDateFormat sdf = new SimpleDateFormat(patternFrom);
-				Date date = sdf.parse(rec.get(source));
-				sdf = new SimpleDateFormat(patternTo);
-				
-				arr.add(sdf.format(date));
+				if(!rec.get(source).trim().equals("")){
+
+					SimpleDateFormat sdf = new SimpleDateFormat(patternFrom);
+					Date date = sdf.parse(rec.get(source));
+					sdf = new SimpleDateFormat(patternTo);
+
+					arr.add(sdf.format(date));
+				}else{
+					arr.add("");
+				}
 
 			}else{
 
@@ -125,7 +130,7 @@ public class App{
 		JSONParser parser = new JSONParser();
 		JSONObject grammer = (JSONObject) parser.parse(new FileReader("config.json"));
 		
-		Reader in = new FileReader("sample-input.csv");
+		Reader in = new FileReader("input.csv");
 		Writer out = new FileWriter("sample-output.csv");
 
 		App app = new App(grammer);
