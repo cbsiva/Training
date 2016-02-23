@@ -56,15 +56,16 @@ SELECT `name`, IFNULL(SUM(`annual`),0) as `marks`, `year` FROM `marks` m JOIN `s
 --3
 SELECT `name`, IFNULL(SUM(`quarterly`),0) as `total`, `grade` FROM `marks` m JOIN `students` s ON m.student_id = s.id WHERE `year` = 2003  GROUP BY `student_id`,`grade`;
 --4
-SELECT `name`, `grade`, count(*) `no_of_medals` FROM `medals` me JOIN `students` s ON me.student_id = s.id GROUP BY student_id, grade HAVING grade IN (9,10);
+--SELECT `name`, `grade`, count(*) `no_of_medals` FROM `medals` me JOIN `students` s ON me.student_id = s.id GROUP BY student_id, grade HAVING grade IN (9,10);
+SELECT `name`, mar.grade as `grade` ,`no_medal_won` FROM `students` s JOIN (SELECT `student_id`, count(`medal_won`) `no_medal_won` FROM `medals` GROUP BY `student_id`) med ON med.student_id = s.id JOIN `marks` mar ON mar.student_id = med.student_id GROUP BY s.id, mar.grade,  HAVING mar.grade IN (9,10);
 --5
 SELECT `name`, `grade`, count(*) `no_of_medals` FROM `medals` me  RIGHT JOIN `students` s ON me.student_id = s.id GROUP BY name, student_id, grade HAVING no_of_medals < 2;
 --6
-SELECT  s.`name`, mar.`year` FROM `students` s LEFT JOIN `medals` med ON s.id = med.student_id  LEFT JOIN `marks` mar ON mar.student_id =  s.id GROUP BY s.id, med.id, mar.year HAVING sum(if(`annual`>40,0,1)) = 0 AND count(med.id) = 0;
+--SELECT  s.`name`, mar.`year` FROM `students` s LEFT JOIN `medals` med ON s.id = med.student_id  LEFT JOIN `marks` mar ON mar.student_id =  s.id GROUP BY s.id, med.id, mar.year HAVING sum(if(`annual`>40,0,1)) = 0 AND count(med.id) = 0;
 --7
 SELECT `name`, `game_id`, `medal_won`, `grade` FROM `medals` me JOIN `students` s ON me.`student_id` = s.`id` WHERE `student_id` in (SELECT `student_id` FROM `medals` GROUP BY `student_id` HAVING count(medal_won) > 3 );
 --8
-SELECT `name`, IFNULL(`no_medal_won`,0) as `medal_won`, AVG(`quarterly`) as `quarterly_per`, AVG(`half_yearly`) as `half_yearly_per`, AVG(`annual`) as `annual_per`, mar.`year`, mar.`grade` FROM `marks` mar LEFT JOIN `students` s ON mar.student_id = s.id  LEFT JOIN (SELECT `student_id`, count(`medal_won`) `no_medal_won`, `year` FROM `medals` GROUP BY `student_id`, `year`) `med` ON s.id = med.student_id and mar.year = med.year GROUP BY s.id, mar.grade, mar.year ;
+SELECT `name`, IFNULL(`no_medal_won`,0) as `medal_won`, AVG(`quarterly`) as `quarterly_per`, AVG(`half_yearly`) as `half_yearly_per`, AVG(`annual`) as `annual_per`, mar.`year`, mar.`grade` FROM `marks` mar  JOIN `students` s ON mar.student_id = s.id  LEFT JOIN (SELECT `student_id`, count(`medal_won`) `no_medal_won`, `year` FROM `medals` GROUP BY `student_id`, `year`) `med` ON s.id = med.student_id and mar.year = med.year GROUP BY s.id, mar.grade, mar.year ;
 --9
 
 DELIMITER //
